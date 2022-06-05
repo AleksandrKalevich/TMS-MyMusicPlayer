@@ -1,96 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ac01e69-7ab3-4f40-8693-0c73275b0a20" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/TMS-Temp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/github/krottv/tmstemp/ExampleInstrumentedTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/MyApp.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/AlbumFragmentBinder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/MainActivityDataBinder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/MainActivityRecyclerScrollDataBinder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/SongFragmentBinder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/AlbumsRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/SongsRepository.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/db/AlbumDbDataSource.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/db/AlbumDbInMemoryDataSource.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/db/SongDbDataSource.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/db/SongDbInMemoryDataSource.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/AlbumRemoteDataSource.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/AlbumRemoteDataSourceRetrofit.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/MusicApi.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSource.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSourceRetrofit.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/AlbumModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/AlbumType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/ContentType.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/SongModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/SongsJSON.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/presentation/AlbumViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/presentation/SongViewModel.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/AlbumAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/AlbumViewHolder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/AlbumsFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/ChargeModeService.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/HostFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/MainActivity.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongAdapter.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongViewHolder.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongsFragment.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/album_image_border.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/album_element.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/albums_fragment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/host_fragment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/song_element.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/songs_fragment.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-night/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values-night/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/values/themes.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/com/github/krottv/tmstemp/ExampleUnitTest.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    <list default="true" id="6ac01e69-7ab3-4f40-8693-0c73275b0a20" name="Changes" comment="28 Service">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/ImageWorkersStarter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/purchase/GooglePlayProductMapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/purchase/Mapper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/purchase/PurchaseMakerInteractorGooglePlay.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/purchase/PurchaseStateInteractorGooglePlay.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/MusicApiRetrofitBuilder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/RetrofitBuilder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongDownload.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongDownloadRetrofit.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PeriodType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/ProductEntity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseMakeInteractor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseMakerInteractorFake.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseStateInteractor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseStateInteractorFake.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/GrayscaleApplier.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/GrayscaleApplierImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageGetterForWork.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageGrayscaleWork.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageSaver.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageSaverLocalStorage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/TestResourceImageGetterForWork.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploadWorker.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploader.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploaderFake.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_premium_icon_off.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/purchase_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/MyApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/MyApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/AlbumFragmentBinder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/AlbumFragmentBinder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/AlbumRemoteDataSourceRetrofit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/AlbumRemoteDataSourceRetrofit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/MusicApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/MusicApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSourceRetrofit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSourceRetrofit.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/ChargeModeService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/ChargeModeService.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/HostFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/HostFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/host_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/host_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/home/zdarova/.android/avd/Redmi_Nte_8_API_32.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -108,8 +83,26 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Kotlin Enum" />
+        <option value="layoutResourceFile" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="29sjuDxMsqwClFbsc2etBO3EQyO" />
   <component name="ProjectLevelVcsManager">
@@ -124,8 +117,22 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WORKMANAGER_INSPECTOR_NOTIFICATION_DISMISSED" value="true" />
     <property name="cidr.known.project.marker" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload" />
+      <recent name="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale" />
+    </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.github.krottv.tmstemp.worker.upload" />
+      <recent name="com.github.krottv.tmstemp.domain.purchase" />
+      <recent name="com.github.krottv.tmstemp.data.purchase" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
@@ -208,6 +215,14 @@
       <option name="presentableId" value="Default" />
       <updated>1653908908011</updated>
     </task>
+    <task id="LOCAL-00001" summary="28 Service">
+      <created>1653909359497</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1653909359497</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -224,5 +239,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="28 Service" />
+    <option name="LAST_COMMIT_MESSAGE" value="28 Service" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
 </project>

@@ -55,17 +55,25 @@ class HostFragment: Fragment() {
             albumFragmentBundle.putSerializable("contentType", ContentType.ITUNES)
             albumViewModel.loadData(ContentType.ITUNES)
             songViewModel.loadData(AlbumType(1,ContentType.ITUNES))
-            changeCurrentSelection(fragment.iTunes, fragment.library)
+            changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
         }
 
         fragment.library.setOnClickListener {
             albumFragmentBundle.putSerializable("contentType", ContentType.LIBRARY)
             albumViewModel.loadData(ContentType.LIBRARY)
             songViewModel.loadData(AlbumType(1,ContentType.LIBRARY))
-            changeCurrentSelection(fragment.library, fragment.iTunes)
+            changeCurrentSelection(fragment.library, listOf(fragment.iTunes, fragment.myMusic))
         }
 
-        changeCurrentSelection(fragment.iTunes, fragment.library)
+        fragment.myMusic.setOnClickListener {
+            changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
+        }
+
+        fragment.purchase.setOnClickListener {
+
+        }
+
+        changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
     }
 
     private fun openFrag(fragment: Fragment, idHolder: Int) {
@@ -75,15 +83,32 @@ class HostFragment: Fragment() {
             .commit()
     }
 
-    private fun changeCurrentSelection(primary: TextView, secondary: TextView) {
+    private fun changeCurrentSelection(primary: TextView, nonPrimaryTextViews: List<TextView>) {
+        setPrimary(primary)
+        setSecondary(nonPrimaryTextViews)
+    }
+
+    private fun setPrimary(primary: TextView) {
         primary.typeface = Typeface.DEFAULT_BOLD
         primary.textSize = 18f
         primary.setTextColor(ContextCompat.getColor(requireContext(), R.color.selectedTextColor))
         primary.isClickable = false
-
-        secondary.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-        secondary.textSize = 16f
-        secondary.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
-        secondary.isClickable = true
     }
+
+    private fun setSecondary(nonPrimaryTextViews: List<TextView>) {
+        for (secondary in nonPrimaryTextViews) {
+            secondary.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+            secondary.textSize = 16f
+            secondary.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
+            secondary.isClickable = true
+        }
+    }
+
+    /*override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+    }*/
 }

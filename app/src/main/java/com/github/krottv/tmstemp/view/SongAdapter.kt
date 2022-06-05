@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.github.krottv.tmstemp.R
@@ -41,6 +42,12 @@ class SongAdapter(data: List<SongModel>): RecyclerView.Adapter<SongViewHolder>()
                 }
             }
         }
+
+        holder.itemView.setOnLongClickListener {
+            Toast.makeText(MainActivity.appContext, "OK", Toast.LENGTH_SHORT).show()
+            true
+        }
+
         holder.songTitle.text = cell.title
         holder.songArtist.text = cell.artist
     }

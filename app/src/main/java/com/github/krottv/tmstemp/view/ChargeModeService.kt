@@ -10,9 +10,7 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.github.krottv.tmstemp.R
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 class ChargeModeService : Service() {
 
@@ -20,17 +18,7 @@ class ChargeModeService : Service() {
         const val CHANNEL_ID = "important_messages"
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        runBlocking {
-            launch {
-                startForeground(10, foregroundNotification())
-                fakeLoad()
-                stopSelf()
-                downloadDoneNotification()
-            }
-        }
-    }
+    private var downloadingJob: Job? = null
 
     private suspend fun fakeLoad() {
 
@@ -70,7 +58,7 @@ class ChargeModeService : Service() {
         createNotificationChannel()
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_launcher_background)
             .setContentTitle("Listening charge ON event")
             .setContentText("Foreground service")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -95,6 +83,13 @@ class ChargeModeService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        downloadingJob?.cancel()
+        downloadingJob = CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
+                startForeground(10, foregroundNotification())
+                fakeLoad()
+                stopSelf()
+                downloadDoneNotification()
+        }
         return START_NOT_STICKY
     }
 

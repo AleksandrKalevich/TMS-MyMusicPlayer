@@ -2,23 +2,18 @@ package com.github.krottv.tmstemp.data.remote
 
 import com.github.krottv.tmstemp.domain.AlbumModel
 import com.github.krottv.tmstemp.domain.SongsJSON
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
-import retrofit2.Retrofit
-import retrofit2.create
+import okhttp3.ResponseBody
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-
-object RetrofitBuilder {
-    val musicApi: MusicApi = Retrofit.Builder()
-        .baseUrl("https://us-central1-inspiry-2ee60.cloudfunctions.net/")
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-        .build()
-        .create()
-}
+import retrofit2.http.Streaming
+import retrofit2.http.Url
 
 interface MusicApi {
+
+    @Streaming
+    @GET
+    suspend fun downloadSong(@Url fileUrl: String): Response<ResponseBody>
 
     @GET("getItunesAlbums")
     suspend fun getItunesAlbums() : List<AlbumModel>

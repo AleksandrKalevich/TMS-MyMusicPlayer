@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlinx-serialization'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -38,9 +39,20 @@ android {
 }
 
 dependencies {
+    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation "com.android.billingclient:billing-ktx:5.0.0"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:2.4.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.4.2"
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
+    implementation "androidx.activity:activity-ktx:1.4.0"
+
     implementation "io.insert-koin:koin-android:3.2.0"
     implementation "io.insert-koin:koin-core:3.2.0"
+    implementation "io.insert-koin:koin-androidx-workmanager:3.2.0"
+    testImplementation "io.insert-koin:koin-test-junit4:3.2.0"
     testImplementation "io.insert-koin:koin-test:3.2.0"
+    androidTestImplementation "androidx.work:work-testing:3.2.0"
 
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
 
