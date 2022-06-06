@@ -1,5 +1,7 @@
 package com.github.krottv.tmstemp.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,6 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class HostFragment: Fragment() {
 
     private lateinit var fragment: HostFragmentBinding
+    private lateinit var sharedPreferences: SharedPreferences
     private val albumsFragment = AlbumsFragment()
     private val songsFragment = SongsFragment()
     private val albumViewModel by sharedViewModel <AlbumViewModel>()
@@ -33,17 +36,32 @@ class HostFragment: Fragment() {
     ): View {
         fragment = HostFragmentBinding.inflate(inflater)
 
+        var currentContentType = ContentType.ITUNES
+
+        sharedPreferences = requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        when (sharedPreferences.getString("primaryTextView", "ITunes")) {
+            "ITunes" -> {
+                changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
+                currentContentType = ContentType.ITUNES
+            }
+            "Library" -> {
+                changeCurrentSelection(fragment.library, listOf(fragment.iTunes, fragment.myMusic))
+                currentContentType = ContentType.LIBRARY
+            }
+            "My Music" -> {
+                changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
+            }
+        }
 
         songFragmentBundle.putLong("albumId", 1)
-        songFragmentBundle.putSerializable("contentType", ContentType.ITUNES)
+        songFragmentBundle.putSerializable("contentType", currentContentType)
         songsFragment.arguments = songFragmentBundle
 
-        albumFragmentBundle.putSerializable("contentType", ContentType.ITUNES)
+        albumFragmentBundle.putSerializable("contentType", currentContentType)
         albumsFragment.arguments = albumFragmentBundle
 
         openFrag(albumsFragment, R.id.albums_container)
         openFrag(songsFragment, R.id.songs_container)
-
 
         return fragment.root
     }
@@ -70,10 +88,8 @@ class HostFragment: Fragment() {
         }
 
         fragment.purchase.setOnClickListener {
-
+            openFrag(PurchaseFragment(), R.id.host_container)
         }
-
-        changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
     }
 
     private fun openFrag(fragment: Fragment, idHolder: Int) {
@@ -83,9 +99,9 @@ class HostFragment: Fragment() {
             .commit()
     }
 
-    private fun changeCurrentSelection(primary: TextView, nonPrimaryTextViews: List<TextView>) {
+    private fun changeCurrentSelection(primary: TextView, nonPrimary: List<TextView>) {
         setPrimary(primary)
-        setSecondary(nonPrimaryTextViews)
+        setSecondary(nonPrimary)
     }
 
     private fun setPrimary(primary: TextView) {
@@ -93,22 +109,18 @@ class HostFragment: Fragment() {
         primary.textSize = 18f
         primary.setTextColor(ContextCompat.getColor(requireContext(), R.color.selectedTextColor))
         primary.isClickable = false
+
+        sharedPreferences.edit()
+            .putString("primaryTextView", "${primary.text}")
+            .apply()
     }
 
-    private fun setSecondary(nonPrimaryTextViews: List<TextView>) {
-        for (secondary in nonPrimaryTextViews) {
+    private fun setSecondary(nonPrimary: List<TextView>) {
+        for (secondary in nonPrimary) {
             secondary.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
             secondary.textSize = 16f
             secondary.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
             secondary.isClickable = true
         }
     }
-
-    /*override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-    }*/
 }
