@@ -1,6 +1,5 @@
 package com.github.krottv.tmstemp.view
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Bundle
@@ -10,20 +9,25 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.github.krottv.tmstemp.R
 import com.github.krottv.tmstemp.databinding.HostFragmentBinding
 import com.github.krottv.tmstemp.domain.AlbumType
 import com.github.krottv.tmstemp.domain.ContentType
+import com.github.krottv.tmstemp.domain.purchase.PurchaseStateInteractor
 import com.github.krottv.tmstemp.presentation.AlbumViewModel
 import com.github.krottv.tmstemp.presentation.SongViewModel
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HostFragment: Fragment() {
 
     private lateinit var fragment: HostFragmentBinding
-    private lateinit var sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences by inject()
     private val albumsFragment = AlbumsFragment()
     private val songsFragment = SongsFragment()
+    private val purchaseStateInteractor by inject<PurchaseStateInteractor>()
     private val albumViewModel by sharedViewModel <AlbumViewModel>()
     private val songViewModel by sharedViewModel <SongViewModel>()
     private val songFragmentBundle = Bundle()
@@ -35,34 +39,6 @@ class HostFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         fragment = HostFragmentBinding.inflate(inflater)
-
-        var currentContentType = ContentType.ITUNES
-
-        sharedPreferences = requireContext().getSharedPreferences("preferences", Context.MODE_PRIVATE)
-        when (sharedPreferences.getString("primaryTextView", "ITunes")) {
-            "ITunes" -> {
-                changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
-                currentContentType = ContentType.ITUNES
-            }
-            "Library" -> {
-                changeCurrentSelection(fragment.library, listOf(fragment.iTunes, fragment.myMusic))
-                currentContentType = ContentType.LIBRARY
-            }
-            "My Music" -> {
-                changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
-            }
-        }
-
-        songFragmentBundle.putLong("albumId", 1)
-        songFragmentBundle.putSerializable("contentType", currentContentType)
-        songsFragment.arguments = songFragmentBundle
-
-        albumFragmentBundle.putSerializable("contentType", currentContentType)
-        albumsFragment.arguments = albumFragmentBundle
-
-        openFrag(albumsFragment, R.id.albums_container)
-        openFrag(songsFragment, R.id.songs_container)
-
         return fragment.root
     }
 
@@ -87,9 +63,49 @@ class HostFragment: Fragment() {
             changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
         }
 
-        fragment.purchase.setOnClickListener {
-            openFrag(PurchaseFragment(), R.id.host_container)
+        lifecycleScope.launch {
+            purchaseStateInteractor.isPremium.collect() {
+                if (it) fragment.purchase.visibility = View.GONE
+                else fragment.purchase.apply {
+                    visibility = View.VISIBLE
+                    setOnClickListener {
+                        openFrag(PurchaseFragment(), R.id.host_container)
+                        parentFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.host_container, PurchaseFragment(), "TAG")
+                            .addToBackStack(null)
+                            .commit()
+                    }
+                }
+            }
         }
+
+        var currentContentType = ContentType.ITUNES
+
+        when (sharedPreferences.getString("primaryTextView", "ITunes")) {
+            "ITunes" -> {
+                changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
+                currentContentType = ContentType.ITUNES
+            }
+            "Library" -> {
+                changeCurrentSelection(fragment.library, listOf(fragment.iTunes, fragment.myMusic))
+                currentContentType = ContentType.LIBRARY
+            }
+            "My Music" -> {
+                changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
+            }
+        }
+
+        songFragmentBundle.putLong("albumId", 1)
+        songFragmentBundle.putSerializable("contentType", currentContentType)
+        songsFragment.arguments = songFragmentBundle
+
+        albumFragmentBundle.putSerializable("contentType", currentContentType)
+        albumsFragment.arguments = albumFragmentBundle
+
+        openFrag(albumsFragment, R.id.albums_container)
+        openFrag(songsFragment, R.id.songs_container)
+
     }
 
     private fun openFrag(fragment: Fragment, idHolder: Int) {

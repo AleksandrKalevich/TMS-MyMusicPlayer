@@ -1,7 +1,8 @@
 package com.github.krottv.tmstemp.domain.purchase
 
-class PurchaseMakerInteractorFake: PurchaseMakeInteractor {
+class PurchaseMakerInteractorFake(private val purchaseStateInteractorFake: PurchaseStateInteractorFake): PurchaseMakeInteractor {
+
     override suspend fun makePurchase(product: ProductEntity) {
-        TODO("Not yet implemented")
+        purchaseStateInteractorFake._isPremium.value = true
     }
 }
