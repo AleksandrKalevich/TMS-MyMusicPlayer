@@ -19,8 +19,8 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class AlbumsFragment: Fragment() {
 
     private lateinit var fragment: AlbumFragmentBinder
-    private val albumViewModel by sharedViewModel <AlbumViewModel>()
-    private val songViewModel by sharedViewModel <SongViewModel>()
+    private val albumViewModel: AlbumViewModel by sharedViewModel()
+    private val songViewModel: SongViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +37,6 @@ class AlbumsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        albumViewModel.loadData(requireArguments().get("contentType") as ContentType)
 
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

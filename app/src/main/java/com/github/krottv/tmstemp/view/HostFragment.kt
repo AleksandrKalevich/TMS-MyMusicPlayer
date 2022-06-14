@@ -21,17 +21,15 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class HostFragment: Fragment() {
+class HostFragment : Fragment() {
 
     private lateinit var fragment: HostFragmentBinding
     private val sharedPreferences: SharedPreferences by inject()
     private val albumsFragment = AlbumsFragment()
     private val songsFragment = SongsFragment()
-    private val purchaseStateInteractor by inject<PurchaseStateInteractor>()
-    private val albumViewModel by sharedViewModel <AlbumViewModel>()
-    private val songViewModel by sharedViewModel <SongViewModel>()
-    private val songFragmentBundle = Bundle()
-    private val albumFragmentBundle = Bundle()
+    private val purchaseStateInteractor: PurchaseStateInteractor by inject()
+    private val albumViewModel: AlbumViewModel by sharedViewModel()
+    private val songViewModel: SongViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +37,10 @@ class HostFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         fragment = HostFragmentBinding.inflate(inflater)
+
+        openFrag(albumsFragment, R.id.albums_container)
+        openFrag(songsFragment, R.id.songs_container)
+
         return fragment.root
     }
 
@@ -46,21 +48,15 @@ class HostFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fragment.iTunes.setOnClickListener {
-            albumFragmentBundle.putSerializable("contentType", ContentType.ITUNES)
-            albumViewModel.loadData(ContentType.ITUNES)
-            songViewModel.loadData(AlbumType(1,ContentType.ITUNES))
-            changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
+            changeCurrentSelection(ContentType.ITUNES)
         }
 
         fragment.library.setOnClickListener {
-            albumFragmentBundle.putSerializable("contentType", ContentType.LIBRARY)
-            albumViewModel.loadData(ContentType.LIBRARY)
-            songViewModel.loadData(AlbumType(1,ContentType.LIBRARY))
-            changeCurrentSelection(fragment.library, listOf(fragment.iTunes, fragment.myMusic))
+            changeCurrentSelection(ContentType.LIBRARY)
         }
 
         fragment.myMusic.setOnClickListener {
-            changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
+            changeCurrentSelection(ContentType.MY_MUSIC)
         }
 
         lifecycleScope.launch {
@@ -70,42 +66,22 @@ class HostFragment: Fragment() {
                     visibility = View.VISIBLE
                     setOnClickListener {
                         openFrag(PurchaseFragment(), R.id.host_container)
-                        parentFragmentManager
-                            .beginTransaction()
-                            .replace(R.id.host_container, PurchaseFragment(), "TAG")
-                            .addToBackStack(null)
-                            .commit()
                     }
                 }
             }
         }
-
-        var currentContentType = ContentType.ITUNES
-
-        when (sharedPreferences.getString("primaryTextView", "ITunes")) {
-            "ITunes" -> {
-                changeCurrentSelection(fragment.iTunes, listOf(fragment.library, fragment.myMusic))
-                currentContentType = ContentType.ITUNES
-            }
-            "Library" -> {
-                changeCurrentSelection(fragment.library, listOf(fragment.iTunes, fragment.myMusic))
-                currentContentType = ContentType.LIBRARY
-            }
-            "My Music" -> {
-                changeCurrentSelection(fragment.myMusic, listOf(fragment.iTunes, fragment.library))
-            }
+        val currentContentType = when (sharedPreferences.getString("primaryTextView", "ITunes")) {
+            "ITunes" -> ContentType.ITUNES
+            "Library" -> ContentType.LIBRARY
+            "My Music" -> ContentType.MY_MUSIC
+            else -> { throw IllegalStateException() }
         }
 
-        songFragmentBundle.putLong("albumId", 1)
-        songFragmentBundle.putSerializable("contentType", currentContentType)
-        songsFragment.arguments = songFragmentBundle
-
+        val albumFragmentBundle = Bundle()
         albumFragmentBundle.putSerializable("contentType", currentContentType)
         albumsFragment.arguments = albumFragmentBundle
 
-        openFrag(albumsFragment, R.id.albums_container)
-        openFrag(songsFragment, R.id.songs_container)
-
+        changeCurrentSelection(currentContentType)
     }
 
     private fun openFrag(fragment: Fragment, idHolder: Int) {
@@ -115,28 +91,46 @@ class HostFragment: Fragment() {
             .commit()
     }
 
-    private fun changeCurrentSelection(primary: TextView, nonPrimary: List<TextView>) {
-        setPrimary(primary)
-        setSecondary(nonPrimary)
+    private fun changeCurrentSelection(contentType: ContentType) {
+        albumsFragment.requireArguments().putSerializable("contentType", contentType)
+        albumViewModel.loadData(contentType)
+        songViewModel.loadData(AlbumType(1, contentType))
+
+        when (contentType) {
+            ContentType.ITUNES -> setPrimary(fragment.iTunes)
+            ContentType.LIBRARY -> setPrimary(fragment.library)
+            ContentType.MY_MUSIC -> setPrimary(fragment.myMusic)
+        }
     }
 
     private fun setPrimary(primary: TextView) {
-        primary.typeface = Typeface.DEFAULT_BOLD
-        primary.textSize = 18f
-        primary.setTextColor(ContextCompat.getColor(requireContext(), R.color.selectedTextColor))
-        primary.isClickable = false
+        primary.run {
+            typeface = Typeface.DEFAULT_BOLD
+            textSize = 18f
+            setTextColor(ContextCompat.getColor(requireContext(), R.color.selectedTextColor))
+            isClickable = false
+        }
+
+        setSecondary(primary)
 
         sharedPreferences.edit()
             .putString("primaryTextView", "${primary.text}")
             .apply()
     }
 
-    private fun setSecondary(nonPrimary: List<TextView>) {
-        for (secondary in nonPrimary) {
-            secondary.typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
-            secondary.textSize = 16f
-            secondary.setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
-            secondary.isClickable = true
+    private fun setSecondary(primary: TextView) {
+
+        val textViewList = listOf(fragment.iTunes, fragment.library, fragment.myMusic)
+
+        for (secondary in textViewList) {
+            if (secondary != primary) {
+                secondary.apply {
+                    typeface = Typeface.create("sans-serif-light", Typeface.NORMAL)
+                    textSize = 16f
+                    setTextColor(ContextCompat.getColor(requireContext(), R.color.textColor))
+                    isClickable = true
+                }
+            }
         }
     }
 }

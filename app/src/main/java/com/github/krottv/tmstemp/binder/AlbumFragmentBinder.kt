@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.github.krottv.tmstemp.R
 import com.github.krottv.tmstemp.databinding.AlbumsFragmentBinding
 import com.github.krottv.tmstemp.domain.AlbumModel
 import com.github.krottv.tmstemp.view.AlbumAdapter
@@ -23,18 +22,17 @@ class AlbumFragmentBinder(private val fragment: Fragment, private val onItemClic
     ): View {
         binding = AlbumsFragmentBinding.inflate(inflater, container, false)
 
+        binding.container.layoutManager = LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
+
         return binding.root
     }
 
     fun onDataLoaded(data: List<AlbumModel>) {
-        val recyclerView = binding.root.findViewById<RecyclerView>(R.id.container)
 
-        recyclerView.layoutManager = LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
-
-        if (recyclerView.adapter == null) {
-            recyclerView.adapter = AlbumAdapter(data, onItemClick)
+        if (binding.container.adapter == null) {
+            binding.container.adapter = AlbumAdapter(data, onItemClick)
         } else {
-            (recyclerView.adapter as AlbumAdapter).data = data
+            (binding.container.adapter as AlbumAdapter).data = data
         }
     }
 }

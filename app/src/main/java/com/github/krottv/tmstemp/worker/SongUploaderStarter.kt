@@ -1,16 +1,15 @@
-package com.github.krottv.tmstemp
+package com.github.krottv.tmstemp.worker
 
 import androidx.work.*
-import com.github.krottv.tmstemp.worker.grayscale.ImageGrayscaleWork
 import com.github.krottv.tmstemp.worker.upload.SongUploadWorker
 import java.util.concurrent.TimeUnit
 
-class ImageWorkersStarter(private val workManager: WorkManager) {
+class SongUploaderStarter(private val workManager: WorkManager) {
 
-    fun start() {
+    fun start(url: String, saveFilePath: String) {
 
-        val grayscaleWork = OneTimeWorkRequestBuilder<ImageGrayscaleWork>()
-            .addTag("image")
+        val songUploadWork = OneTimeWorkRequestBuilder<SongUploadWorker>()
+            .addTag("songDownload")
             .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
             .keepResultsForAtLeast(10L, TimeUnit.MINUTES)
             .setBackoffCriteria(BackoffPolicy.LINEAR, 1, TimeUnit.MINUTES)
@@ -21,17 +20,19 @@ class ImageWorkersStarter(private val workManager: WorkManager) {
             )
             .setInputData(
                 Data.Builder()
-                    .putString(ImageGrayscaleWork.KEY_INPUT_PATH, "some_image")
+                    .putString(SongUploadWorker.KEY_SONG_PATH, url)
+                    .putString(SongUploadWorker.SAVE_FILE_PATH, saveFilePath)
                     .build()
             )
             .build()
 
 
         val uploadWork = OneTimeWorkRequestBuilder<SongUploadWorker>()
-            .addTag("song")
+            .addTag("songDownload")
+            .setInputMerger(OverwritingInputMerger::class.java)
             .build()
 
-        workManager.beginUniqueWork(ALL_UNIQUE_WORK_NAME, ExistingWorkPolicy.REPLACE, grayscaleWork)
+        workManager.beginUniqueWork(ALL_UNIQUE_WORK_NAME, ExistingWorkPolicy.REPLACE, songUploadWork)
             .then(uploadWork)
             .enqueue()
 

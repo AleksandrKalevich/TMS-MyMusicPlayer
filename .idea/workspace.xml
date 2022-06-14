@@ -14,13 +14,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6ac01e69-7ab3-4f40-8693-0c73275b0a20" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/PreferenceHelper.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/deploymentTargetDropDown.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/HostFragmentBinder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/PurchaseFragmentBinder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/AlbumRemoteDataSourceFake.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSourceFake.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/presentation/PurchaseViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/presentation/SongDownloadViewModel.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/PurchaseAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/PurchaseViewHolder.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/SongUploaderStarter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/purchase_element.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/navEditor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/navEditor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/ImageWorkersStarter.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/MyApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/MyApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/AlbumFragmentBinder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/AlbumFragmentBinder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/SongFragmentBinder.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/binder/SongFragmentBinder.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/PreferenceHelper.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/db/AlbumDbInMemoryDataSource.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/db/AlbumDbInMemoryDataSource.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSourceRetrofit.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/data/remote/SongRemoteDataSourceRetrofit.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseMakerInteractorFake.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseMakerInteractorFake.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseStateInteractorFake.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/domain/purchase/PurchaseStateInteractorFake.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/presentation/SongViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/presentation/SongViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/AlbumsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/AlbumsFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/HostFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/HostFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/PurchaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/PurchaseFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/view/SongsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/GrayscaleApplier.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/GrayscaleApplierImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageGetterForWork.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageGrayscaleWork.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageSaver.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/ImageSaverLocalStorage.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/grayscale/TestResourceImageGetterForWork.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploadWorker.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploadWorker.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploader.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload/SongUploaderFake.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/purchase_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/purchase_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/songs_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/songs_fragment.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,15 +85,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Enum" />
-        <option value="layoutResourceFile" />
         <option value="Kotlin Interface" />
         <option value="navigationResourceFile" />
+        <option value="layoutResourceFile" />
         <option value="Kotlin Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="WARN_ABOUT_CRLF" value="false" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -84,7 +121,7 @@
     <property name="WORKMANAGER_INSPECTOR_NOTIFICATION_DISMISSED" value="true" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/github/krottv/tmstemp/worker/upload" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -199,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654518896129</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="добавил кривой sharedPreferences, позже буду добивать">
+      <created>1654531694790</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1654531694790</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkManager
 import coil.load
 import com.github.krottv.tmstemp.R
 import com.github.krottv.tmstemp.domain.SongModel
+import com.github.krottv.tmstemp.worker.SongUploaderStarter
 
 class SongAdapter(data: List<SongModel>): RecyclerView.Adapter<SongViewHolder>() {
 
@@ -44,7 +45,7 @@ class SongAdapter(data: List<SongModel>): RecyclerView.Adapter<SongViewHolder>()
         }
 
         holder.itemView.setOnLongClickListener {
-            Toast.makeText(MainActivity.appContext, "OK", Toast.LENGTH_SHORT).show()
+            SongUploaderStarter(WorkManager.getInstance()).start(cell.url, "/storage/emulated/0/Music/${cell.artist} $position - ${cell.title}.mp3")
             true
         }
 

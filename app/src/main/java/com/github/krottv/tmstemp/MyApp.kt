@@ -1,10 +1,10 @@
 package com.github.krottv.tmstemp
 
 import android.app.Application
+import android.content.Context
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.github.krottv.tmstemp.data.AlbumsRepository
-import com.github.krottv.tmstemp.data.PreferenceHelper
 import com.github.krottv.tmstemp.data.SongsRepository
 import com.github.krottv.tmstemp.data.db.AlbumDbDataSource
 import com.github.krottv.tmstemp.data.db.AlbumDbInMemoryDataSource
@@ -16,9 +16,13 @@ import com.github.krottv.tmstemp.domain.purchase.PurchaseMakerInteractorFake
 import com.github.krottv.tmstemp.domain.purchase.PurchaseStateInteractor
 import com.github.krottv.tmstemp.domain.purchase.PurchaseStateInteractorFake
 import com.github.krottv.tmstemp.presentation.AlbumViewModel
+import com.github.krottv.tmstemp.presentation.PurchaseViewModel
+import com.github.krottv.tmstemp.presentation.SongDownloadViewModel
 import com.github.krottv.tmstemp.presentation.SongViewModel
+import com.github.krottv.tmstemp.worker.upload.SongUploadWorker
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.androidx.workmanager.dsl.workerOf
 import org.koin.androidx.workmanager.factory.KoinWorkerFactory
 import org.koin.core.context.GlobalContext.startKoin
 import org.koin.core.module.Module
@@ -43,7 +47,7 @@ class MyApp : Application(), Configuration.Provider {
                 bind<SongDbDataSource>()
             }
 
-            factoryOf(::SongRemoteDataSourceRetrofit){
+            factoryOf(::SongRemoteDataSourceFake){
                 bind<SongRemoteDataSource>()
             }
 
@@ -51,12 +55,13 @@ class MyApp : Application(), Configuration.Provider {
                 bind<AlbumDbDataSource>()
             }
 
-            factoryOf(::AlbumRemoteDataSourceRetrofit){
+            factoryOf(::AlbumRemoteDataSourceFake){
                 bind<AlbumRemoteDataSource>()
             }
 
             viewModelOf(::AlbumViewModel)
             viewModelOf(::SongViewModel)
+            viewModelOf(::PurchaseViewModel)
         }
 
     private val modulePurchases: Module
@@ -70,10 +75,23 @@ class MyApp : Application(), Configuration.Provider {
             }
         }
 
+    private val moduleWorker: Module
+        get() = module {
+
+            workerOf(::SongUploadWorker)
+
+            viewModelOf(::SongDownloadViewModel)
+
+            factoryOf(::SongDownloadRetrofit) {
+                bind<SongDownload>()
+            }
+        }
+
     private val moduleSharedPreferences: Module
         get() = module {
             single {
-                PreferenceHelper.customPrefs(androidContext(),"preferences")
+                val context: Context = get()
+                context.getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
             }
         }
 
@@ -81,7 +99,7 @@ class MyApp : Application(), Configuration.Provider {
         super.onCreate()
         startKoin {
             module {
-                modules(moduleRepository, modulePurchases, moduleSharedPreferences)
+                modules(moduleRepository, modulePurchases, moduleSharedPreferences, moduleWorker)
                 androidContext(this@MyApp)
             }
         }

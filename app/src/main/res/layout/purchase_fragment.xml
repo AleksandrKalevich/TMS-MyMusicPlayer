@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/purchareTitle"
+        android:id="@+id/purchaseTitle"
         android:layout_width="255dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
@@ -17,27 +17,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/monthPurchare"
-        android:layout_width="wrap_content"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/purchasesContainer"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="20dp"
-        android:text="Подписка на месяц - 4$"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/purchareTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/purchaseTitle" />
 
-    <TextView
-        android:id="@+id/yearPurchare"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="35dp"
-        android:text="Подписка на год - 10$"
-        android:textSize="14sp"
-        android:fontFamily="sans-serif"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/monthPurchare" />
 </androidx.constraintlayout.widget.ConstraintLayout>

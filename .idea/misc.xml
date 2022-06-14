@@ -3,12 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/album_image_border.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2975" />
+        <entry key="app/src/main/res/drawable/ic_premium_icon_off.xml" value="0.2975" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.22282608695652173" />
-        <entry key="app/src/main/res/layout/album_element.xml" value="0.2509057971014493" />
+        <entry key="app/src/main/res/layout/album_element.xml" value="0.9" />
+        <entry key="app/src/main/res/layout/albums_fragment.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/layout/host_fragment.xml" value="0.5" />
         <entry key="app/src/main/res/layout/purchase_Page.xml" value="0.2509057971014493" />
+        <entry key="app/src/main/res/layout/purchase_element.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/purchase_fragment.xml" value="0.33" />
         <entry key="app/src/main/res/layout/purchase_page.xml" value="0.5" />
         <entry key="app/src/main/res/layout/song_element.xml" value="0.2509057971014493" />
+        <entry key="app/src/main/res/layout/songs_fragment.xml" value="0.18177083333333333" />
       </map>
     </option>
   </component>

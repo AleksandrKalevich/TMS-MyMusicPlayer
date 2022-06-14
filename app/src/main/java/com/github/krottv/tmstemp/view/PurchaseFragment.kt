@@ -5,44 +5,55 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import com.github.krottv.tmstemp.databinding.PurchasePageBinding
-import com.github.krottv.tmstemp.domain.purchase.PeriodType
-import com.github.krottv.tmstemp.domain.purchase.ProductEntity
+import androidx.lifecycle.repeatOnLifecycle
+import com.github.krottv.tmstemp.R
+import com.github.krottv.tmstemp.binder.PurchaseFragmentBinder
 import com.github.krottv.tmstemp.domain.purchase.PurchaseMakeInteractor
+import com.github.krottv.tmstemp.presentation.PurchaseViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class PurchaseFragment: Fragment() {
 
-    private lateinit var binding: PurchasePageBinding
-    private val purchaseMake by inject<PurchaseMakeInteractor>()
+    private lateinit var binding: PurchaseFragmentBinder
+    private val viewModel: PurchaseViewModel by sharedViewModel()
+    private val purchaseMake: PurchaseMakeInteractor by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = PurchasePageBinding.inflate(layoutInflater, container, false)
+        binding = PurchaseFragmentBinder(this) {
+            lifecycleScope.launch {
+                purchaseMake.makePurchase(it)
+            }
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.host_container, HostFragment())
+                .commit()
+        }
 
-        return binding.root
+        return binding.bindView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.monthPurchare.setOnClickListener {
-            lifecycleScope.launch {
-                purchaseMake.makePurchase(ProductEntity(PeriodType.MONTH, "10", false))
+        viewModel.loadData()
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.state.collect {
+                    if (it != null) {
+                        if (it.isSuccess) {
+                            binding.onDataLoaded(it.getOrThrow())
+                        }
+                    }
+                }
             }
-            parentFragmentManager.findFragmentByTag("TAG")
-        }
-
-        binding.yearPurchare.setOnClickListener {
-            lifecycleScope.launch {
-                purchaseMake.makePurchase(ProductEntity(PeriodType.YEAR, "10", false))
-            }
-            parentFragmentManager.popBackStackImmediate("TAG", 0)
         }
     }
 }

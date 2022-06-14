@@ -9,9 +9,9 @@ class AlbumDbInMemoryDataSource : AlbumDbDataSource {
 
     override suspend fun saveAlbums(contentType: ContentType, list: List<AlbumModel>) {
         if (inMemoryData1 == null) {
-            inMemoryData1 = mutableMapOf(contentType to list.map {it.copy(name = it.name + " (cache)")})
+            inMemoryData1 = mutableMapOf(contentType to list.map {it.copy(name = it.name + ".cache")})
         } else {
-            inMemoryData1!![contentType] = list.map {it.copy(name = it.name + " (cache)")}
+            inMemoryData1!![contentType] = list.map {it.copy(name = it.name + ".cache")}
         }
     }
 
