@@ -2,13 +2,11 @@ package com.github.krottv.tmstemp.presentation
 
 import android.os.Build
 import androidx.annotation.WorkerThread
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.github.krottv.tmstemp.data.remote.SongDownload
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.map
 import okhttp3.ResponseBody
 import java.io.File
 import java.io.FileOutputStream
@@ -17,22 +15,16 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
 
-class SongDownloadViewModel(private val songDownload: SongDownload) : ViewModel() {
+class SongDownloadViewModel(private val songDownload: SongDownload) {
 
-    private var downloadingJob: Job? = null
+    suspend fun downloadSong(url: String, saveFilePath: String): Flow<Float> {
 
-    fun downloadSong(url: String, saveFilePath: String): Flow<Long> {
-        downloadingJob?.cancel()
+        val responseBody = songDownload.downloadSong(url).body()
+        val size = getFileSizeOfUrl(url)
+        val file = File(saveFilePath)
 
-        downloadingJob = viewModelScope.launch {
-            val responseBody = songDownload.downloadSong(url).body()
-            saveFile(responseBody, saveFilePath)
-        }
-
-        return flow {
-            val file = File(saveFilePath)
-            val size = file.length()
-            emit(size/getFileSizeOfUrl(url))
+        return saveFile(responseBody, file).map {
+            it / size.toFloat()
         }
     }
 
@@ -55,26 +47,29 @@ class SongDownloadViewModel(private val songDownload: SongDownload) : ViewModel(
         return -1
     }
 
-    private fun saveFile(body: ResponseBody?, pathWhereYouWantToSaveFile: String): String {
+    private fun saveFile(body: ResponseBody?, pathWhereYouWantToSaveFile: File): Flow<Int> {
         if (body == null)
-            return ""
-        var input: InputStream? = null
-        try {
-            input = body.byteStream()
-            val fos = FileOutputStream(pathWhereYouWantToSaveFile)
-            fos.use { output ->
-                val buffer = ByteArray(4 * 1024) // or other buffer size
-                var read: Int
-                while (input.read(buffer).also { read = it } != -1) {
-                    output.write(buffer, 0, read)
+            return emptyFlow()
+
+        return flow {
+            var input: InputStream? = null
+            try {
+                input = body.byteStream()
+                val fos = FileOutputStream(pathWhereYouWantToSaveFile)
+                fos.use { output ->
+                    val buffer = ByteArray(4 * 1024) // or other buffer size
+                    var read: Int
+                    while (input.read(buffer).also { read = it } != -1) {
+                        output.write(buffer, 0, read)
+                        emit(read)
+                    }
+                    output.flush()
                 }
-                output.flush()
+            } catch (e: Exception) {}
+            finally {
+                input?.close()
             }
-            return pathWhereYouWantToSaveFile
-        } catch (e: Exception) {}
-        finally {
-            input?.close()
         }
-        return ""
+
     }
 }

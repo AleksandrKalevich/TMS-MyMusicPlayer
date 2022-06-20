@@ -19,6 +19,8 @@ import com.github.krottv.tmstemp.presentation.AlbumViewModel
 import com.github.krottv.tmstemp.presentation.PurchaseViewModel
 import com.github.krottv.tmstemp.presentation.SongDownloadViewModel
 import com.github.krottv.tmstemp.presentation.SongViewModel
+import com.github.krottv.tmstemp.view.mymus.TracksMyMusicDataSource
+import com.github.krottv.tmstemp.view.mymus.TracksMyMusicDataSourceImpl
 import com.github.krottv.tmstemp.worker.upload.SongUploadWorker
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -80,7 +82,7 @@ class MyApp : Application(), Configuration.Provider {
 
             workerOf(::SongUploadWorker)
 
-            viewModelOf(::SongDownloadViewModel)
+            factoryOf(::SongDownloadViewModel)
 
             factoryOf(::SongDownloadRetrofit) {
                 bind<SongDownload>()
@@ -95,15 +97,21 @@ class MyApp : Application(), Configuration.Provider {
             }
         }
 
+    private val moduleMusicFromDevice: Module
+        get() = module {
+            factoryOf(::TracksMyMusicDataSourceImpl) {
+                bind<TracksMyMusicDataSource>()
+            }
+        }
+
     override fun onCreate() {
         super.onCreate()
         startKoin {
             module {
-                modules(moduleRepository, modulePurchases, moduleSharedPreferences, moduleWorker)
+                modules(moduleRepository, modulePurchases, moduleSharedPreferences, moduleWorker, moduleMusicFromDevice)
                 androidContext(this@MyApp)
             }
         }
-
         WorkManager.initialize(this, workManagerConfiguration)
     }
 

@@ -7,10 +7,7 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.work.CoroutineWorker
-import androidx.work.ForegroundInfo
-import androidx.work.WorkManager
-import androidx.work.WorkerParameters
+import androidx.work.*
 import com.github.krottv.tmstemp.R
 import com.github.krottv.tmstemp.presentation.SongDownloadViewModel
 
@@ -29,10 +26,10 @@ class SongUploadWorker(
         val saveFilePath = inputData.getString(SAVE_FILE_PATH)!!
 
         return try {
-            songDownloadViewModel.downloadSong(songPath, saveFilePath)
-            /*imageUploader.uploadImage(imagePath).collect {
+            songDownloadViewModel.downloadSong(songPath, saveFilePath).collect {
                 setProgress(Data.Builder().putFloat("progress", it).build())
-            }*/
+            }
+
             Result.success()
         } catch (e: Exception) {
 

@@ -11,9 +11,9 @@ class SongDbInMemoryDataSource : SongDbDataSource {
 
     override suspend fun saveSongs(list: SongsJSON, contentType: ContentType) {
         if (inMemoryData == null) {
-            inMemoryData = mutableMapOf(AlbumType(list.album.id, contentType) to list.tracks.map {it.copy(title = it.title + " (cache)")})
+            inMemoryData = mutableMapOf(AlbumType(list.album.id, contentType) to list.tracks.map {it.copy(title = it.title + ".cache")})
         } else {
-            inMemoryData!![AlbumType(list.album.id, contentType)] = list.tracks.map {it.copy(title = it.title + " (cache)")}
+            inMemoryData!![AlbumType(list.album.id, contentType)] = list.tracks.map {it.copy(title = it.title + ".cache")}
         }
     }
 

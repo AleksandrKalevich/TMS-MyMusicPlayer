@@ -9,14 +9,14 @@ class AlbumRemoteDataSourceFake : AlbumRemoteDataSource {
         return when(contentType) {
             ContentType.ITUNES -> getITunesAlbums()
             ContentType.LIBRARY -> getLibraryAlbums()
-            ContentType.MY_MUSIC -> getLibraryAlbums()
+            else -> { throw IllegalAccessError("ContentType Mismatch") }
         }
     }
 
     private fun getITunesAlbums(): List<AlbumModel> {
         val model = AlbumModel(
             0,
-            "https://sun9-north.userapi.com/sun9-81/s/v1/ig2/wIL_XF8XNjbnczI7IwIec_w6FmZOxXPJLGrtMVEH7OnXTUqOpY2t_2Qt4wgHBECL8CipxHTG7bxwC35GPpsSMakE.jpg?size=1080x1054&quality=96&type=album",
+            "https://sun9-west.userapi.com/sun9-15/s/v1/if1/clLrdLujJuK86SV17KmlzQE8QT70-yqAJ9vgzv9USJjNmzyWlC3pxLo5QGpx0htEZpOnbVkn.jpg?size=920x520&quality=96&type=album",
             "Album",
             10
         )
@@ -32,7 +32,7 @@ class AlbumRemoteDataSourceFake : AlbumRemoteDataSource {
     private fun getLibraryAlbums(): List<AlbumModel> {
         val model = AlbumModel(
             0,
-            "https://sun9-west.userapi.com/sun9-47/s/v1/ig2/1lEJ8E-3rbUeX0ZPxQYK_JxtPJ5ZhTrGc58ZWzUm3tIJN-6cqoF2aC_SI8VXqvcyn2IrBBSdBwXpyXPULJJaWbQx.jpg?size=1080x814&quality=96&type=album",
+            "https://merchbar.imgix.net/product/105/6519/2520008982610/XW1Ogc4P34art.png?auto=format&fit=max&w=750",
             "Album",
             10
         )

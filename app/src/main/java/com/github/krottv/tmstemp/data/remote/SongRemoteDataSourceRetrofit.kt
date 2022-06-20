@@ -10,7 +10,7 @@ class SongRemoteDataSourceRetrofit(private val api: RetrofitBuilder<MusicApi>) :
         return when(albumType.contentType) {
             ContentType.ITUNES -> api.getApi().getItunesSongs(albumType.albumId)
             ContentType.LIBRARY -> api.getApi().getLibrarySongs(albumType.albumId)
-            ContentType.MY_MUSIC -> api.getApi().getLibrarySongs(albumType.albumId)
+            else -> { throw IllegalAccessError("ContentType Mismatch") }
         }
     }
 }

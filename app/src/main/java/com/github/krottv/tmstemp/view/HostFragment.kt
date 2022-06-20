@@ -11,12 +11,16 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.github.krottv.tmstemp.R
+import com.github.krottv.tmstemp.data.permissions.PermissionState
+import com.github.krottv.tmstemp.data.permissions.StoragePermissionChecker
+import com.github.krottv.tmstemp.data.permissions.StoragePermissionCheckerImpl
 import com.github.krottv.tmstemp.databinding.HostFragmentBinding
 import com.github.krottv.tmstemp.domain.AlbumType
 import com.github.krottv.tmstemp.domain.ContentType
 import com.github.krottv.tmstemp.domain.purchase.PurchaseStateInteractor
 import com.github.krottv.tmstemp.presentation.AlbumViewModel
 import com.github.krottv.tmstemp.presentation.SongViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -27,9 +31,11 @@ class HostFragment : Fragment() {
     private val sharedPreferences: SharedPreferences by inject()
     private val albumsFragment = AlbumsFragment()
     private val songsFragment = SongsFragment()
+    private val myMusicFragment = SongsFragment()
     private val purchaseStateInteractor: PurchaseStateInteractor by inject()
     private val albumViewModel: AlbumViewModel by sharedViewModel()
     private val songViewModel: SongViewModel by sharedViewModel()
+    private lateinit var storagePermissionChecker: StoragePermissionChecker
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +44,7 @@ class HostFragment : Fragment() {
     ): View {
         fragment = HostFragmentBinding.inflate(inflater)
 
-        openFrag(albumsFragment, R.id.albums_container)
-        openFrag(songsFragment, R.id.songs_container)
-
+        storagePermissionChecker = StoragePermissionCheckerImpl(requireActivity())
         return fragment.root
     }
 
@@ -56,7 +60,32 @@ class HostFragment : Fragment() {
         }
 
         fragment.myMusic.setOnClickListener {
-            changeCurrentSelection(ContentType.MY_MUSIC)
+            viewLifecycleOwner.lifecycleScope.launch {
+                setPrimary(fragment.myMusic)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    storagePermissionChecker.storagePermission.collectLatest { permissionState ->
+                        when (permissionState) {
+                            PermissionState.HAS_PERMISSION -> {
+                                parentFragmentManager
+                                    .beginTransaction()
+                                    .remove(albumsFragment)
+                                    .replace(R.id.songs_container, myMusicFragment)
+                                    .commit()
+                                songViewModel.loadMyData()
+                            }
+                            PermissionState.NO_PERMISSION -> {
+                                storagePermissionChecker.startPermissionDialog()
+                            }
+                            PermissionState.REJECTED_ASK_AGAIN -> {
+                                storagePermissionChecker.startPermissionDialog()
+                            }
+                            PermissionState.REJECTED_FOREVER -> {
+                                fragment.myMusic.visibility = View.GONE
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         lifecycleScope.launch {
@@ -70,6 +99,7 @@ class HostFragment : Fragment() {
                 }
             }
         }
+
         val currentContentType = when (sharedPreferences.getString("primaryTextView", "ITunes")) {
             "ITunes" -> ContentType.ITUNES
             "Library" -> ContentType.LIBRARY
@@ -92,6 +122,8 @@ class HostFragment : Fragment() {
     }
 
     private fun changeCurrentSelection(contentType: ContentType) {
+        openFrag(albumsFragment, R.id.albums_container)
+        openFrag(songsFragment, R.id.songs_container)
         albumsFragment.requireArguments().putSerializable("contentType", contentType)
         albumViewModel.loadData(contentType)
         songViewModel.loadData(AlbumType(1, contentType))
