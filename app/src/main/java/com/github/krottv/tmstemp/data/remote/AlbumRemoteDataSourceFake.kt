@@ -23,7 +23,7 @@ class AlbumRemoteDataSourceFake : AlbumRemoteDataSource {
 
         val mutableListOf = ArrayList<AlbumModel>(10)
         for (i in 0..10) {
-            mutableListOf.add(model.copy(name = "Alb${i+1}"))
+            mutableListOf.add(model.copy(name = "Alb${i+1}", id = i+1L))
         }
 
         return mutableListOf
@@ -39,7 +39,7 @@ class AlbumRemoteDataSourceFake : AlbumRemoteDataSource {
 
         val mutableListOf = ArrayList<AlbumModel>(10)
         for (i in 0..10) {
-            mutableListOf.add(model.copy(name = "Alb${i+1}"))
+            mutableListOf.add(model.copy(name = "Alb${i+1}", id = i+1L))
         }
 
         return mutableListOf

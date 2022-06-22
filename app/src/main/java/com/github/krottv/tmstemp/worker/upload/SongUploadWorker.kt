@@ -7,12 +7,15 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.work.*
+import androidx.work.CoroutineWorker
+import androidx.work.ForegroundInfo
+import androidx.work.WorkManager
+import androidx.work.WorkerParameters
 import com.github.krottv.tmstemp.R
-import com.github.krottv.tmstemp.presentation.SongDownloadViewModel
+import com.github.krottv.tmstemp.presentation.SongUpload
 
 class SongUploadWorker(
-    private val songDownloadViewModel: SongDownloadViewModel,
+    private val songUpload: SongUpload,
     appContext: Context,
     params: WorkerParameters
 ) :
@@ -26,13 +29,11 @@ class SongUploadWorker(
         val saveFilePath = inputData.getString(SAVE_FILE_PATH)!!
 
         return try {
-            songDownloadViewModel.downloadSong(songPath, saveFilePath).collect {
-                setProgress(Data.Builder().putFloat("progress", it).build())
-            }
+            songUpload.downloadSong(songPath, saveFilePath)
 
             Result.success()
-        } catch (e: Exception) {
 
+        } catch (e: Exception) {
             if (runAttemptCount >= MAX_RETRIES)
                 Result.failure()
             else
@@ -88,6 +89,6 @@ class SongUploadWorker(
         const val KEY_SONG_PATH = "song_path"
         const val SAVE_FILE_PATH = "where to save song"
         private const val NOTIFICATION_ID = 9274
-        private const val MAX_RETRIES = 2
+        private const val MAX_RETRIES = 9
     }
 }

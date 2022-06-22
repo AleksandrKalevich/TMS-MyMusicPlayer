@@ -19,6 +19,7 @@ class ChargeModeService : Service() {
     }
 
     private var downloadingJob: Job? = null
+    private val myCoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
 
     private suspend fun fakeLoad() {
 
@@ -84,13 +85,18 @@ class ChargeModeService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         downloadingJob?.cancel()
-        downloadingJob = CoroutineScope(SupervisorJob() + Dispatchers.Main).launch {
+        downloadingJob = myCoroutineScope.launch {
                 startForeground(10, foregroundNotification())
                 fakeLoad()
                 stopSelf()
                 downloadDoneNotification()
         }
         return START_NOT_STICKY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        myCoroutineScope.cancel()
     }
 
     override fun onBind(intent: Intent?): IBinder? {

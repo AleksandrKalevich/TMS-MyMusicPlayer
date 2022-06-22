@@ -1,16 +1,14 @@
 package com.github.krottv.tmstemp.view
 
-import android.graphics.Outline
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkManager
 import coil.load
 import com.github.krottv.tmstemp.R
 import com.github.krottv.tmstemp.domain.SongModel
+import com.github.krottv.tmstemp.utils.ChangeViewForm.setRoundRect
 import com.github.krottv.tmstemp.worker.SongUploaderStarter
 
 class SongAdapter(data: List<SongModel>): RecyclerView.Adapter<SongViewHolder>() {
@@ -30,22 +28,15 @@ class SongAdapter(data: List<SongModel>): RecyclerView.Adapter<SongViewHolder>()
         val cell = data[position]
 
         holder.songImage.apply {
-            load(cell.image.replace("{w}", "200").replace("{h}", "200")) {
+            load(cell.image) {
                 placeholder(R.drawable.loading)
             }
             scaleType = ImageView.ScaleType.CENTER_CROP
-
-            clipToOutline = true
-
-            outlineProvider = object: ViewOutlineProvider() {
-                override fun getOutline(view: View, outline: Outline) {
-                    outline.setRoundRect(0,0,view.width, view.height, 20f)
-                }
-            }
+            setRoundRect(this, 8)
         }
 
         holder.itemView.setOnLongClickListener {
-            SongUploaderStarter(WorkManager.getInstance()).start(cell.url, "/storage/emulated/0/Music/${cell.artist} $position - ${cell.title}.mp3")
+            SongUploaderStarter(WorkManager.getInstance()).start(cell.url, "/storage/emulated/0/Music/${cell.artist} - ${cell.title}.mp3")
             true
         }
 

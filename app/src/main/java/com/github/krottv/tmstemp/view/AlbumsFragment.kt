@@ -18,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class AlbumsFragment: Fragment() {
 
-    private lateinit var fragment: AlbumFragmentBinder
+    private lateinit var binder: AlbumFragmentBinder
     private val albumViewModel: AlbumViewModel by sharedViewModel()
     private val songViewModel: SongViewModel by sharedViewModel()
 
@@ -28,11 +28,11 @@ class AlbumsFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        fragment = AlbumFragmentBinder(this) {
+        binder = AlbumFragmentBinder(this) {
             songViewModel.loadData(AlbumType(it, requireArguments().get("contentType") as ContentType))
         }
 
-        return fragment.bindView(inflater, container, savedInstanceState)
+        return binder.bindView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class AlbumsFragment: Fragment() {
                 albumViewModel.state.collect {
                     if (it != null) {
                         if (it.isSuccess) {
-                            fragment.onDataLoaded(it.getOrThrow())
+                            binder.onDataLoaded(it.getOrThrow())
                         }
                     }
                 }

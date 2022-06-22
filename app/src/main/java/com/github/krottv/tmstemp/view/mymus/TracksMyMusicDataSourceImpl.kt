@@ -7,10 +7,9 @@ import android.os.Build
 import android.provider.MediaStore
 import com.github.krottv.tmstemp.domain.SongModel
 
-class TracksMyMusicDataSourceImpl(private val context: Context) :
-    TracksMyMusicDataSource {
+class TracksMyMusicDataSourceImpl(private val context: Context) : TracksMyMusicDataSource {
 
-    private val contentUriAlbums: Uri by lazy {
+    private val contentUriSongs: Uri by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             MediaStore.Audio.Media.getContentUri(
                 MediaStore.VOLUME_EXTERNAL
@@ -20,7 +19,7 @@ class TracksMyMusicDataSourceImpl(private val context: Context) :
         }
     }
 
-    override suspend fun getTracks(): List<SongModel> {
+    override suspend fun getTracks(albumId: Long): List<SongModel> {
 
         val contentResolver = context.contentResolver!!
 
@@ -31,8 +30,8 @@ class TracksMyMusicDataSourceImpl(private val context: Context) :
                 MediaStore.Audio.Media.TITLE,
                 MediaStore.Audio.Media._ID
             ),
-            null,
-            null,
+            "album_id = ?",
+            arrayOf(albumId.toString()),
             MediaStore.Audio.Media.ALBUM + " asc"
         )
 
@@ -51,7 +50,7 @@ class TracksMyMusicDataSourceImpl(private val context: Context) :
                 )
 
                 val image = ContentUris
-                    .withAppendedId(contentUriAlbums, id)
+                    .withAppendedId(contentUriSongs, id)
 
                 result.add(SongModel(artist, image.toString(), title, ""))
 

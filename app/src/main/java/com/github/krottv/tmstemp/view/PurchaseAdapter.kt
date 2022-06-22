@@ -27,11 +27,11 @@ class PurchaseAdapter(data: List<ProductEntity>, private val onItemClick: (Produ
         holder.purchaseType.apply {
             text = cell.priceLocal
             setOnClickListener {
-                onItemClick(cell)
                 when(cell.periodType) {
-                    PeriodType.MONTH -> Toast.makeText(MainActivity.appContext, "Month subscription activated", Toast.LENGTH_SHORT).show()
-                    PeriodType.YEAR -> Toast.makeText(MainActivity.appContext, "Year subscription activated", Toast.LENGTH_SHORT).show()
+                    PeriodType.MONTH -> Toast.makeText(context, "Month subscription activated", Toast.LENGTH_SHORT).show()
+                    PeriodType.YEAR -> Toast.makeText(context, "Year subscription activated", Toast.LENGTH_SHORT).show()
                 }
+                onItemClick(cell)
             }
         }
     }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.krottv.tmstemp.data.SongsRepository
 import com.github.krottv.tmstemp.domain.AlbumType
+import com.github.krottv.tmstemp.domain.ContentType
 import com.github.krottv.tmstemp.domain.SongModel
 import com.github.krottv.tmstemp.view.mymus.TracksMyMusicDataSource
 import kotlinx.coroutines.Dispatchers
@@ -24,20 +25,11 @@ class SongViewModel(private val songRepository: SongsRepository, private val tra
 
         downloadingJob = viewModelScope.launch(Dispatchers.IO) {
             val result = try {
-                Result.success(songRepository.getSongs(albumType))
-            } catch (exception: Throwable) {
-                Result.failure(exception)
-            }
-            _state.emit(result)
-        }
-    }
-
-    fun loadMyData() {
-        downloadingJob?.cancel()
-
-        downloadingJob = viewModelScope.launch(Dispatchers.IO) {
-            val result = try {
-                Result.success(tracksMyMusicDataSource.getTracks())
+                when (albumType.contentType)
+                {
+                    ContentType.MY_MUSIC -> Result.success(tracksMyMusicDataSource.getTracks(albumType.albumId))
+                    else -> { Result.success(songRepository.getSongs(albumType)) }
+                }
             } catch (exception: Throwable) {
                 Result.failure(exception)
             }

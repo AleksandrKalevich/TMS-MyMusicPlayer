@@ -3,18 +3,16 @@ package com.github.krottv.tmstemp.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.krottv.tmstemp.data.AlbumsRepository
-import com.github.krottv.tmstemp.data.db.AlbumDbInMemoryDataSource
-import com.github.krottv.tmstemp.data.remote.AlbumRemoteDataSourceRetrofit
 import com.github.krottv.tmstemp.domain.AlbumModel
 import com.github.krottv.tmstemp.domain.ContentType
+import com.github.krottv.tmstemp.view.mymus.AlbumsMyMusicDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.koin.java.KoinJavaComponent.inject
 
-class AlbumViewModel(private val albumRepository: AlbumsRepository): ViewModel() {
+class AlbumViewModel(private val albumRepository: AlbumsRepository, private val albumsMyMusicDataSource: AlbumsMyMusicDataSource): ViewModel() {
 
     private val _state = MutableStateFlow<Result<List<AlbumModel>>?>(null)
     val state: StateFlow<Result<List<AlbumModel>>?> = _state
@@ -26,12 +24,16 @@ class AlbumViewModel(private val albumRepository: AlbumsRepository): ViewModel()
 
         downloadingJob = viewModelScope.launch(Dispatchers.IO) {
             val result = try {
-                Result.success(albumRepository.getAlbums(contentType))
+                when (contentType)
+                {
+                    ContentType.MY_MUSIC -> Result.success(albumsMyMusicDataSource.getTracks())
+                    else -> { Result.success(albumRepository.getAlbums(contentType)) }
+                }
             } catch (exception: Throwable) {
                 Result.failure(exception)
             }
-
             _state.emit(result)
         }
     }
 }
+

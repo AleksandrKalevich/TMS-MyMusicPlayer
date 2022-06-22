@@ -34,6 +34,8 @@ class PurchaseFragment: Fragment() {
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.host_container, HostFragment())
+                .replace(R.id.albums_container, AlbumsFragment(), "ALBUMS_FRAGMENT")
+                .replace(R.id.songs_container, SongsFragment())
                 .commit()
         }
 

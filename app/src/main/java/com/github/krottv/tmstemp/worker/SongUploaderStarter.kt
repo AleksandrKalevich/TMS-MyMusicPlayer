@@ -26,7 +26,6 @@ class SongUploaderStarter(private val workManager: WorkManager) {
             )
             .build()
 
-
         val uploadWork = OneTimeWorkRequestBuilder<SongUploadWorker>()
             .addTag("songDownload")
             .setInputMerger(OverwritingInputMerger::class.java)

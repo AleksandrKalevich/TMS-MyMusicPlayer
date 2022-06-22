@@ -8,8 +8,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class StoragePermissionCheckerImpl(private val activity: ComponentActivity) :
-    StoragePermissionChecker {
+class StoragePermissionCheckerImpl(private val activity: ComponentActivity) : StoragePermissionChecker {
 
     private val _storagePermission = MutableStateFlow(hasPermission())
 

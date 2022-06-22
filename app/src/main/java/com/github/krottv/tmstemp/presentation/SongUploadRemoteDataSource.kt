@@ -15,9 +15,9 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLConnection
 
-class SongDownloadViewModel(private val songDownload: SongDownload) {
+class SongUploadRemoteDataSource(private val songDownload: SongDownload): SongUpload {
 
-    suspend fun downloadSong(url: String, saveFilePath: String): Flow<Float> {
+    override suspend fun downloadSong(url: String, saveFilePath: String): Flow<Float> {
 
         val responseBody = songDownload.downloadSong(url).body()
         val size = getFileSizeOfUrl(url)
@@ -70,6 +70,5 @@ class SongDownloadViewModel(private val songDownload: SongDownload) {
                 input?.close()
             }
         }
-
     }
 }

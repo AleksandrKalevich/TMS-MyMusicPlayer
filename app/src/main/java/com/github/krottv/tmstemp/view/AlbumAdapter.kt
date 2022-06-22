@@ -1,16 +1,13 @@
 package com.github.krottv.tmstemp.view
 
-import android.content.res.Resources
-import android.graphics.Outline
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.github.krottv.tmstemp.R
 import com.github.krottv.tmstemp.domain.AlbumModel
+import com.github.krottv.tmstemp.utils.ChangeViewForm.setRoundRect
 
 class AlbumAdapter(data: List<AlbumModel>, private val onItemClick: (Long) -> Unit): RecyclerView.Adapter<AlbumViewHolder>() {
 
@@ -42,7 +39,7 @@ class AlbumAdapter(data: List<AlbumModel>, private val onItemClick: (Long) -> Un
         }
 
         holder.itemView.setOnClickListener {
-            onItemClick(position+1.toLong())
+            onItemClick(cell.id)
         }
 
         holder.albumName.text = cell.name
@@ -51,15 +48,4 @@ class AlbumAdapter(data: List<AlbumModel>, private val onItemClick: (Long) -> Un
     override fun getItemCount(): Int {
         return data.size
     }
-
-    private fun setRoundRect(imageView: ImageView, dp: Int) {
-        imageView.clipToOutline = true
-        imageView.outlineProvider = object: ViewOutlineProvider() {
-            override fun getOutline(view: View, outline: Outline) {
-                outline.setRoundRect(0, 0, view.width, view.height, dpToPx(dp))
-            }
-        }
-    }
-
-    private fun dpToPx(dp: Int): Float = dp * Resources.getSystem().displayMetrics.density
 }

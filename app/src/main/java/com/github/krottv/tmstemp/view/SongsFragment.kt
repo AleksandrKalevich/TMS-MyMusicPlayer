@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SongsFragment: Fragment() {
 
-    private lateinit var fragment: SongFragmentBinder
+    private lateinit var binder: SongFragmentBinder
     private val viewModel: SongViewModel by sharedViewModel()
 
     override fun onCreateView(
@@ -23,9 +23,9 @@ class SongsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        fragment = SongFragmentBinder(this)
+        binder = SongFragmentBinder(this)
 
-        return fragment.bindView(inflater, container, savedInstanceState)
+        return binder.bindView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class SongsFragment: Fragment() {
                 viewModel.state.collect {
                     if (it != null) {
                         if (it.isSuccess) {
-                            fragment.onDataLoaded(it.getOrThrow())
+                            binder.onDataLoaded(it.getOrThrow())
                         }
                     }
                 }

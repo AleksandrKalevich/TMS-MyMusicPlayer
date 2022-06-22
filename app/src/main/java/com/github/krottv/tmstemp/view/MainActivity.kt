@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         val mainActivityDataBinder: MainActivityDataBinder =
             MainActivityRecyclerScrollDataBinder(this)
         mainActivityDataBinder.bind()
-        appContext = applicationContext
+
         createReceiver()
     }
 
@@ -50,9 +50,5 @@ class MainActivity : AppCompatActivity() {
     private fun registerReceiver() {
         val intentFilter = IntentFilter(Intent.ACTION_POWER_CONNECTED)
         registerReceiver(broadcastReceiver, intentFilter)
-    }
-
-    companion object {
-        lateinit  var appContext: Context
     }
 }
