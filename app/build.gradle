@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlinx-serialization'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'de.mannodermaus.android-junit5'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -39,8 +41,16 @@ android {
 }
 
 dependencies {
-    implementation("androidx.datastore:datastore:1.0.0")
+    implementation "androidx.room:room-ktx:2.4.2"
+    kapt "androidx.room:room-compiler:2.4.2"
 
+    testImplementation "org.junit.jupiter:junit-jupiter-api:5.6.0"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.6.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:5.6.0"
+    testImplementation "io.mockk:mockk:1.12.4"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1"
+
+    implementation "androidx.datastore:datastore:1.0.0"
 
     implementation "androidx.work:work-runtime-ktx:2.7.1"
     implementation "com.android.billingclient:billing-ktx:5.0.0"

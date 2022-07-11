@@ -1,6 +1,6 @@
 package com.github.krottv.tmstemp.data
 
-import com.github.krottv.tmstemp.data.db.AlbumDbDataSource
+import com.github.krottv.tmstemp.data.database.AlbumDbDataSource
 import com.github.krottv.tmstemp.data.remote.AlbumRemoteDataSource
 import com.github.krottv.tmstemp.domain.AlbumModel
 import com.github.krottv.tmstemp.domain.ContentType

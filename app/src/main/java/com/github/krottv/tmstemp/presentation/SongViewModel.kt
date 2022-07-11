@@ -3,10 +3,10 @@ package com.github.krottv.tmstemp.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.krottv.tmstemp.data.SongsRepository
+import com.github.krottv.tmstemp.data.local.TracksMyMusicDataSource
 import com.github.krottv.tmstemp.domain.AlbumType
 import com.github.krottv.tmstemp.domain.ContentType
 import com.github.krottv.tmstemp.domain.SongModel
-import com.github.krottv.tmstemp.view.mymus.TracksMyMusicDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow

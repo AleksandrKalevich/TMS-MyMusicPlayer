@@ -1,8 +1,8 @@
 package com.github.krottv.tmstemp
 
+import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -11,7 +11,7 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
+    fun `addition_isCorrect`() = runTest {
         var a = 1
         var b : Int = a
         println(a)
@@ -19,5 +19,6 @@ class ExampleUnitTest {
         a = 2
         println(a)
         println(b)
+        assertEquals(a,b)
     }
 }

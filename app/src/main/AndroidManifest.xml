@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".MyApp"
+        android:name=".utils.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TmsTemp">
 
         <activity
-            android:name=".view.MainActivity"
+            android:name="com.github.krottv.tmstemp.presentation.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".view.ChargeModeService"
+        <service android:name="com.github.krottv.tmstemp.presentation.view.ChargeModeService"
                  android:exported="false" />
 
         <provider

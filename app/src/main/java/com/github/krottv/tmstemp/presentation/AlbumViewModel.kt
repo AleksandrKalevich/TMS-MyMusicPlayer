@@ -3,9 +3,9 @@ package com.github.krottv.tmstemp.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.krottv.tmstemp.data.AlbumsRepository
+import com.github.krottv.tmstemp.data.local.AlbumsMyMusicDataSource
 import com.github.krottv.tmstemp.domain.AlbumModel
 import com.github.krottv.tmstemp.domain.ContentType
-import com.github.krottv.tmstemp.view.mymus.AlbumsMyMusicDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
